@@ -246,65 +246,93 @@ var jane = Object.create(personProto, {
 /*
 * Bind, Call and Apply
 */
+//
+// var john = {
+//   name: 'John',
+//   age: 26,
+//   job: 'teacher',
+//   presentation: function(style, timeOfDay) {
+//       if (style === 'formal') {
+//           console.log('Good ' + timeOfDay + ', ladies and gentlemen! I\'m ' + this.name + ', I\'m a ' + this.job + ' and I\'m ' + this.age + ' years old.');
+//       } else if (style === 'friendly') {
+//           console.log('Hey! What\'s up? I\'m ' + this.name + ', I\'m a ' + this.job + ' and I\'m ' + this.age + ' years old. Have a nice ' + timeOfDay + '.');
+//       }
+//   }
+// }
+//
+// var emily = {
+//   name: 'Emily',
+//   age: 35,
+//   job: 'designer'
+// }
+//
+// john.presentation('formal', 'morning');
+//
+// // the first argument in call is referring "this" and we borrowed a method from John
+// john.presentation.call(emily, 'friendly', 'afternoon');
+//
+// // will not work in this case, cause our function is not expecting an array
+// //  john.presentation.apply(emily, ['friendly', 'afternoon']);
+//
+// var johnFriendly = john.presentation.bind(john, 'friendly');
+//
+// // Curring is a technique in which we create a function based on another function, but with some preset parameters in which the bind-method is very useful for that
+// johnFriendly('afternoon');
+// johnFriendly('night');
+//
+// var emilyFormal = john.presentation.bind(emily, 'formal');
+// emilyFormal('afternoon');
+//
+//
+//
+// var years = [1990, 1965, 1937, 2005, 1998];
+//
+// function arrayCalc(arr, fn) {
+//     var arrResult = [];
+//     for (var i = 0; i < arr.length; i++) {
+//         arrResult.push(fn(arr[i]));
+//     }
+//     return arrResult;
+// }
+//
+// function calculateAge(element) {
+//     return 2019 - element;
+// }
+//
+// function isFullAge(limit, element) {
+//     return element >= limit;
+// }
+//
+// var ages = arrayCalc(years, calculateAge);
+// var fullJapan = arrayCalc(ages, isFullAge.bind(this, 20));
+// console.log(ages);
+// console.log(fullJapan);
 
-var john = {
-  name: 'John',
-  age: 26,
-  job: 'teacher',
-  presentation: function(style, timeOfDay) {
-      if (style === 'formal') {
-          console.log('Good ' + timeOfDay + ', ladies and gentlemen! I\'m ' + this.name + ', I\'m a ' + this.job + ' and I\'m ' + this.age + ' years old.');
-      } else if (style === 'friendly') {
-          console.log('Hey! What\'s up? I\'m ' + this.name + ', I\'m a ' + this.job + ' and I\'m ' + this.age + ' years old. Have a nice ' + timeOfDay + '.');
-      }
-  }
+function Question(question, answers, correct) {
+    this.question = question;
+    this.answers = answers;
+    this.correct = correct;
 }
 
-var emily = {
-  name: 'Emily',
-  age: 35,
-  job: 'designer'
-}
+Question.prototype.displayQuestion = function() {
+    console.log(this.question);
 
-john.presentation('formal', 'morning');
-
-// the first argument in call is referring "this" and we borrowed a method from John
-john.presentation.call(emily, 'friendly', 'afternoon');
-
-// will not work in this case, cause our function is not expecting an array
-//  john.presentation.apply(emily, ['friendly', 'afternoon']);
-
-var johnFriendly = john.presentation.bind(john, 'friendly');
-
-// Curring is a technique in which we create a function based on another function, but with some preset parameters in which the bind-method is very useful for that
-johnFriendly('afternoon');
-johnFriendly('night');
-
-var emilyFormal = john.presentation.bind(emily, 'formal');
-emilyFormal('afternoon');
-
-
-
-var years = [1990, 1965, 1937, 2005, 1998];
-
-function arrayCalc(arr, fn) {
-    var arrResult = [];
-    for (var i = 0; i < arr.length; i++) {
-        arrResult.push(fn(arr[i]));
+    for (var i = 0; i < this.answers.length; i++) {
+        console.log(i + ': ' + this.answers[i]);
     }
-    return arrResult;
-}
+};
 
-function calculateAge(element) {
-    return 2019 - element;
-}
+var question1 = new Question('Are we playing the game written in JavaScript?', ['Yes', 'No'], 0);
 
-function isFullAge(limit, element) {
-    return element >= limit;
-}
+var question2 = new Question('What is the name of the JavaScript designer?', ['James Gosling', 'Brendan Eich', 'Larry Wall', 'Guido van Rossum'], 1);
 
-var ages = arrayCalc(years, calculateAge);
-var fullJapan = arrayCalc(ages, isFullAge.bind(this, 20));
-console.log(ages);
-console.log(fullJapan);
+var question3 = new Question('When was JavaScript invented?', [1990, 1999, 1998, 1995], 3);
 
+var question4 = new Question('What was the JavaScript first called?', ['TypeScript', 'LiveScript', 'JavaScript', 'PyScript'], 1);
+
+
+var questions = [question1, question2, question3, question4];
+
+var n = Math.floor(Math.random() * questions.length);
+
+questions[n].displayQuestion();
